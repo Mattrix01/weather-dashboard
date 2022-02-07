@@ -22,3 +22,14 @@ searchBtnEl.addEventListener("click", buttonClickHandler);
 // just getting data back and then generating html from the data we recieved.
 // to find city longitude etc https://openweathermap.org/current
 // get the data first from weather API https://openweathermap.org/api/one-call-api
+//
+// Make sure i use my generated API key: API key:
+// - Your API key is 7e6847b6027bd0af581a71ea3d6caf97
+// - Within the next couple of hours, it will be activated and ready to use
+// - You can later create more API keys on your account page
+// - Please, always use your API key in each API call
+
+// Endpoint:
+// - Please, use the endpoint api.openweathermap.org for your API calls
+// - Example of API call:
+// api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=7e6847b6027bd0af581a71ea3d6caf97
