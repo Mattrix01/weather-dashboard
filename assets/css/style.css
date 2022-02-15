@@ -14,6 +14,7 @@ header {
   text-shadow: 1px 1px 10px #fff, 1px 1px 10px #ccc;
   background: rgb(50, 50, 50);
   background-image: url(https://storage.needpix.com/rsynced_images/earth-935468_1280.jpg);
+  opacity: 0.8;
 }
 
 main {

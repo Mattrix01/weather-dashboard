@@ -1,16 +1,35 @@
 const APIkey = "7e6847b6027bd0af581a71ea3d6caf97";
-var searchBoxEl = document.querySelector("#searchBox");
-var searchBtnEl = document.querySelector("#searchBtnEl");
+var city = "london";
 
-const currentWeatherContainer = $("#currentWeatherResults");
-const forecastContainer = $("#forecastEl");
+var getWeather = function () {
+  var cityURL =
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
+    city +
+    "&limit=5&appid=" +
+    APIkey;
+  fetch(cityURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+};
+
+getWeather();
+// original plan
+// var searchBoxEl = document.querySelector("#searchBox");
+// var searchBtnEl = document.querySelector("#searchBtnEl");
+
+// const currentWeatherContainer = $("#currentWeatherResults");
+// const forecastContainer = $("#forecastEl");
 // const searchContainer = $("#search-history");
 
-function getWeather(lat, lon) {
-  //use lat and lon on second fetch to get the data from the one call api
-  // use the data response - it will have current andfuture data on the object
-  //this data we use to render onto the html sections 'current' and 'forecast'
-}
+// function getWeather(lat, lon) {
+//use lat and lon on second fetch to get the data from the one call api
+// use the data response - it will have current andfuture data on the object
+//this data we use to render onto the html sections 'current' and 'forecast'
+// }
 
 function buttonClickHandler() {
   // get what value the user has tped in search box
@@ -22,7 +41,7 @@ function buttonClickHandler() {
   //use lat and lon and pass them into another function which will get the current and future weather
 }
 
-searchBtnEl.addEventListener("click", buttonClickHandler);
+// searchBtnEl.addEventListener("click", buttonClickHandler);
 
 // just getting data back and then generating html from the data we recieved.
 // to find city longitude etc https://openweathermap.org/current
