@@ -25,7 +25,15 @@
       <h1>Weather Dashboard</h1>
     </header>
     <main>
-      <div class="card">
+      <div class="card-history fadeindelay">
+        <div id="history" class="card-body"></div>
+        <ul>
+          <p>Last Search</p>
+          <p>Last Search</p>
+          <p>Last Search</p>
+        </ul>
+      </div>
+      <div class="card fadein">
         <div class="search-box">
           <input type="text" class="search-bar" placeholder="Search for City" />
           <button>
@@ -55,18 +63,30 @@
         </div>
       </div>
     </main>
-
-    <!-- <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
-      crossorigin="anonymous"
-    ></script> -->
-
-    <!-- <script
-      src="https://code.jquery.com/jquery-3.6.0.js"
-      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-      crossorigin="anonymous"
-    ></script> -->
+    <section>
+      <div class="card2">
+        <div class="weather">
+          <h2 class="city">Weather in London</h2>
+          <h1 class="temperature">40°c</h1>
+          <img src="" alt="" class="icon" />
+          <div class="description">Cloudy</div>
+          <div class="humidity">Humidity: 40%</div>
+          <div class="wind">Wind speed: 10km/h</div>
+          <div class="uv">UV index: 0.1</div>
+        </div>
+      </div>
+      <div class="card2">
+        <div class="weather">
+          <h2 class="city">Weather in London</h2>
+          <h1 class="temperature">40°c</h1>
+          <img src="" alt="" class="icon" />
+          <div class="description">Cloudy</div>
+          <div class="humidity">Humidity: 40%</div>
+          <div class="wind">Wind speed: 10km/h</div>
+          <div class="uv">UV index: 0.1</div>
+        </div>
+      </div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
