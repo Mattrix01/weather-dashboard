@@ -15,10 +15,15 @@ let weather = {
         }
         return response.json();
       })
-      .then((data) => this.displayWeather(data));
+      .then((data) => {
+        console.log(data);
+        this.displayWeather(data);
+        this.displayForecast(data.coord.lat, data.coord.lon);
+      });
   },
   // Append function
   displayWeather: function (data) {
+    console.log(data);
     // extracting name from this object and making it into a variable
     const { name } = data;
     // extracting icon and description from data, weather object
@@ -38,6 +43,32 @@ let weather = {
       "Humidity: " + humidity + "%";
     document.querySelector(".wind").innerText =
       "Wind speed: " + speed + " km/h";
+  },
+  displayForecast: function (lat, lon) {
+    console.log(lat, lon);
+    fetch(
+      "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+        lat +
+        "&lon=" +
+        lon +
+        "&exclude=alerts,minutely,current,hourly&appid=" +
+        this.apiKey
+    )
+      .then((response) => {
+        if (!response.ok) {
+          alert("No weather forecast");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("futureweather", data);
+        this.createForecastCards(data.daily);
+      });
+  },
+  createForecastCards: function (dailyForecast) {
+    for (var i = 0; i < dailyForecast.length; i++) {
+      console.log(dailyForecast[i]);
+    }
   },
   // function to get content of search bar
   search: function () {
