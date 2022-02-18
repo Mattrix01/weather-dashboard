@@ -16,13 +16,13 @@ let weather = {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         this.displayWeather(data);
         this.displayForecast(data.coord.lat, data.coord.lon);
       });
   },
   // Append function
   displayWeather: function (data) {
+    // what data is fetching
     console.log(data);
     // extracting name from this object and making it into a variable
     const { name } = data;
@@ -32,7 +32,7 @@ let weather = {
     // speed taken out of that object data and made into a variable
     const { speed } = data.wind;
     //
-    console.log(name, icon, description, temp, humidity, speed);
+
     // appending to document classes set up
     document.querySelector(".city").innerText = "Weather in " + name;
     document.querySelector(".icon").src =
@@ -43,9 +43,9 @@ let weather = {
       "Humidity: " + humidity + "%";
     document.querySelector(".wind").innerText =
       "Wind speed: " + speed + " km/h";
+    //add in UV index
   },
   displayForecast: function (lat, lon) {
-    console.log(lat, lon);
     fetch(
       "https://api.openweathermap.org/data/2.5/onecall?lat=" +
         lat +
@@ -61,13 +61,19 @@ let weather = {
         return response.json();
       })
       .then((data) => {
-        console.log("futureweather", data);
         this.createForecastCards(data.daily);
       });
   },
   createForecastCards: function (dailyForecast) {
-    for (var i = 0; i < dailyForecast.length; i++) {
+    for (var i = 0; i < 5; i++) {
       console.log(dailyForecast[i]);
+      // create the elments for html, or each forecast create a new card div
+      // inside that create h2 and give text of data of forecast.
+      // create h1 for temperature
+      // create image elemnet for icon
+      // a div for the humidity, div for wind, div for UV
+      // append all of elemnts into card div created in html
+      // append parent div into section of <section> in html, do for each iteration of the daily forecast,, as its in the for loop
     }
   },
   // function to get content of search bar
