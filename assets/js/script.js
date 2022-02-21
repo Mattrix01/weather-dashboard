@@ -31,6 +31,15 @@ let weather = {
     const { temp, humidity } = data.main;
     // speed taken out of that object data and made into a variable
     const { speed } = data.wind;
+    // uv index with if statement for index color
+    // const { uvi } = data.current.uvi;
+    // if (data.current.uvi >= 7) {
+    //   uvIndexEl.setAttribute("class", "high");
+    // } else if (data.current.uvi >= 2) {
+    //   uvIndexEl.setAttribute("class", "moderate");
+    // } else if (data.current.uvi < 2) {
+    //   uvIndexEl.setAttribute("class", "low");
+    // }
     //
 
     // appending to document classes set up
@@ -43,7 +52,7 @@ let weather = {
       "Humidity: " + humidity + "%";
     document.querySelector(".wind").innerText =
       "Wind speed: " + speed + " km/h";
-    //add in UV index
+    document.querySelector(".uv").innerText = "UV index: " + uvi;
   },
   displayForecast: function (lat, lon) {
     fetch(

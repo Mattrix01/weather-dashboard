@@ -128,3 +128,22 @@ section {
 .fadeindelay {
   animation: fadein 4s;
 }
+
+/* Uv index styles */
+.high {
+  background-color: red;
+  border-radius: 15%;
+  padding: 2px;
+}
+
+.low {
+  background-color: green;
+  border-radius: 15%;
+  padding: 2px;
+}
+
+.moderate {
+  background-color: yellow;
+  border-radius: 15%;
+  padding: 2px;
+}
