@@ -49,7 +49,7 @@ let weather = {
         lat +
         "&lon=" +
         lon +
-        "&exclude=alerts,minutely,hourly&appid=" +
+        "&exclude=alerts,minutely,hourly&units=metric&appid=" +
         this.apiKey
     )
       .then((response) => {
@@ -73,12 +73,13 @@ let weather = {
     } else if (data < 2) {
       document.querySelector(".uv").setAttribute("class", "low uv");
     }
-    console.log(document.querySelector(".uv"));
+
     document.querySelector(".uv").innerText = data;
   },
   createForecastCards: function (dailyForecast) {
+    const forecastCardsString = [];
+
     for (var i = 0; i < 5; i++) {
-      console.log(dailyForecast[i]);
       // create the elments for html, or each forecast create a new card div
       // inside that create h2 and give text of data of forecast.
       // create h1 for temperature
@@ -86,7 +87,21 @@ let weather = {
       // a div for the humidity, div for wind, div for UV
       // append all of elemnts into card div created in html
       // append parent div into section of <section> in html, do for each iteration of the daily forecast,, as its in the for loop
+      const forecastCard = ` <div class="card2">
+    <div class="weather">
+      <h2 class="city">Weather in London </h2>
+      <h1 class="temperature">${dailyForecast[i].feels_like.day}°c</h1>
+      <img src="" alt="" class="icon" />
+      <div class="description">${dailyForecast[i].weather[0].description}</div>
+      <div class="humidity">Humidity: ${dailyForecast[i].humidity}</div>
+      <div class="wind">Wind speed: ${dailyForecast[i].wind_speed}</div>
+    </div>
+  </div>`;
+      forecastCardsString.push(forecastCard);
     }
+
+    const section = document.querySelector(".forecastSection");
+    section.innerHTML = forecastCardsString.join("");
   },
   // function to get content of search bar
   search: function () {
