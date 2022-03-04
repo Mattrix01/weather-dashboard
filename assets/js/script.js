@@ -23,7 +23,7 @@ let weather = {
   // Append function
   displayWeather: function (data) {
     // what data is fetching
-    console.log(data);
+    // console.log(data);
     // extracting name from this object and making it into a variable
     const { name } = data;
     // extracting icon and description from data, weather object
@@ -31,16 +31,6 @@ let weather = {
     const { temp, humidity } = data.main;
     // speed taken out of that object data and made into a variable
     const { speed } = data.wind;
-    // uv index with if statement for index color
-    // const { uvi } = data.current.uvi;
-    // if (data.current.uvi >= 7) {
-    //   uvIndexEl.setAttribute("class", "high");
-    // } else if (data.current.uvi >= 2) {
-    //   uvIndexEl.setAttribute("class", "moderate");
-    // } else if (data.current.uvi < 2) {
-    //   uvIndexEl.setAttribute("class", "low");
-    // }
-    //
 
     // appending to document classes set up
     document.querySelector(".city").innerText = "Weather in " + name;
@@ -52,7 +42,6 @@ let weather = {
       "Humidity: " + humidity + "%";
     document.querySelector(".wind").innerText =
       "Wind speed: " + speed + " km/h";
-    document.querySelector(".uv").innerText = "UV index: " + uvi;
   },
   displayForecast: function (lat, lon) {
     fetch(
@@ -60,7 +49,7 @@ let weather = {
         lat +
         "&lon=" +
         lon +
-        "&exclude=alerts,minutely,current,hourly&appid=" +
+        "&exclude=alerts,minutely,hourly&appid=" +
         this.apiKey
     )
       .then((response) => {
@@ -70,8 +59,22 @@ let weather = {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
+        this.displayUv(data.current.uvi);
         this.createForecastCards(data.daily);
       });
+  },
+  displayUv: function (data) {
+    console.log(document.querySelector(".uv"));
+    if (data >= 7) {
+      document.querySelector(".uv").setAttribute("class", "high uv");
+    } else if (data >= 2) {
+      document.querySelector(".uv").setAttribute("class", "moderate uv");
+    } else if (data < 2) {
+      document.querySelector(".uv").setAttribute("class", "low uv");
+    }
+    console.log(document.querySelector(".uv"));
+    document.querySelector(".uv").innerText = data;
   },
   createForecastCards: function (dailyForecast) {
     for (var i = 0; i < 5; i++) {
