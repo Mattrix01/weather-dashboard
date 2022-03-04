@@ -107,12 +107,33 @@ let weather = {
   search: function () {
     this.fetchWeather(document.querySelector(".search-bar").value);
   },
+  addToLocalStorage: function () {
+    const searchCity = document.querySelector(".search-bar").value;
+    console.log("Searched City:", searchCity);
+    // Get list of searches from local storage or create empty array
+    let searchHistory = JSON.parse(localStorage.getItem("searches")) || [];
+    //Check if recent searched city is already in the search history
+    if (searchHistory.indexOf(searchCity) !== -1) {
+      console.log(searchCity, searchHistory);
+      return;
+    }
+    searchHistory.push(searchCity);
+    // store array back in local storage
+    localStorage.setItem("searches", JSON.stringify(searchHistory));
+    // call the generateHistoryButtons function to regenerate the previous search buttons
+    this.generateHistoryButtons(searchHistory);
+  },
+  generateHistoryButtons: function (arrayOfPreviousSearchs) {
+    console.log(arrayOfPreviousSearchs);
+    // use template litierals again to regenerate buttons like on forecast, fo each one create a button and append that button to area of html i want it.
+  },
 };
 // selectors, on search-box button to search for the search content in weather variable
 document
   .querySelector(".search-box button")
   .addEventListener("click", function () {
     weather.search();
+    weather.addToLocalStorage();
   });
 // selector for pressing enter key, taking in event to the parameter.
 document
@@ -121,42 +142,15 @@ document
     // if key is enter, do weather search function
     if (event.key == "Enter") {
       weather.search();
+      weather.addToLocalStorage();
     }
   });
+GetLastStorage = function () {
+  // return value of last search to put in fetchWeather
+  // glasgow just placeholder
+
+  return "glasgow";
+};
 // when load page default to london
-weather.fetchWeather("London");
-
-// original plan
-// var searchBoxEl = document.querySelector("#searchBox");
-// var searchBtnEl = document.querySelector("#searchBtnEl");
-
-// const currentWeatherContainer = $("#currentWeatherResults");
-// const forecastContainer = $("#forecastEl");
-// const searchContainer = $("#search-history");
-
-// function getWeather(lat, lon) {
-//use lat and lon on second fetch to get the data from the one call api
-// use the data response - it will have current andfuture data on the object
-//this data we use to render onto the html sections 'current' and 'forecast'
-// }
-
-// function buttonClickHandler() {
-// get what value the user has tped in search box
-// .trim etc remove uneeded spaces
-//first - add the search to local storage
-//second - use city name to get lat and lon from the api  - on the first fetch request we concatenate the url with the city
-//destrcuture the response and get the latitude and loningitude for the city response.coord.lat, response.coord.lon pass them into getWeather function
-// var lat = for example
-//use lat and lon and pass them into another function which will get the current and future weather
-// };
-
-// searchBtnEl.addEventListener("click", buttonClickHandler);
-
-// just getting data back and then generating html from the data we recieved.
-// to find city longitude etc https://openweathermap.org/current
-// get the data first from weather API https://openweathermap.org/api/one-call-api
-
-// Endpoint:
-// - Please, use the endpoint api.openweathermap.org for your API calls
-// - Example of API call:
-// api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=7e6847b6027bd0af581a71ea3d6caf97
+// criteria, whenever the user loads page, it brings up the last weather search
+weather.fetchWeather(getLastStorage());
