@@ -1,12 +1,15 @@
+const apiKey = "7e6847b6027bd0af581a71ea3d6caf97";
 let weather = {
-  apiKey: "7e6847b6027bd0af581a71ea3d6caf97",
   // fetching weather
   fetchWeather: function (city) {
+    console.log(this);
+    console.log(city);
+
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
         city +
         "&units=metric&appid=" +
-        this.apiKey
+        apiKey
     )
       .then((response) => {
         if (!response.ok) {
@@ -50,7 +53,7 @@ let weather = {
         "&lon=" +
         lon +
         "&exclude=alerts,minutely,hourly&units=metric&appid=" +
-        this.apiKey
+        apiKey
     )
       .then((response) => {
         if (!response.ok) {
@@ -59,7 +62,6 @@ let weather = {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         this.displayUv(data.current.uvi);
         this.createForecastCards(data.daily);
       });
@@ -109,23 +111,33 @@ let weather = {
   },
   addToLocalStorage: function () {
     const searchCity = document.querySelector(".search-bar").value;
-    console.log("Searched City:", searchCity);
+
     // Get list of searches from local storage or create empty array
     let searchHistory = JSON.parse(localStorage.getItem("searches")) || [];
     //Check if recent searched city is already in the search history
     if (searchHistory.indexOf(searchCity) !== -1) {
-      console.log(searchCity, searchHistory);
       return;
     }
     searchHistory.push(searchCity);
     // store array back in local storage
     localStorage.setItem("searches", JSON.stringify(searchHistory));
     // call the generateHistoryButtons function to regenerate the previous search buttons
-    this.generateHistoryButtons(searchHistory);
+    this.generateHistoryButtons();
   },
-  generateHistoryButtons: function (arrayOfPreviousSearchs) {
-    console.log(arrayOfPreviousSearchs);
-    // use template litierals again to regenerate buttons like on forecast, fo each one create a button and append that button to area of html i want it.
+  generateHistoryButtons: function () {
+    let searchHistory = JSON.parse(localStorage.getItem("searches")) || [];
+
+    const historySection = document.querySelector(".history");
+    historySection.innerHTML = "";
+
+    for (let i = 0; i < searchHistory.length; i++) {
+      var btn = document.createElement("button");
+      btn.setAttribute("value", searchHistory[i]);
+      btn.textContent = searchHistory[i];
+      btn.onclick = this.fetchWeather;
+
+      historySection.appendChild(btn);
+    }
   },
 };
 // selectors, on search-box button to search for the search content in weather variable
@@ -145,12 +157,14 @@ document
       weather.addToLocalStorage();
     }
   });
-GetLastStorage = function () {
+
+getLastStorage = function () {
   // return value of last search to put in fetchWeather
   // glasgow just placeholder
 
   return "glasgow";
 };
+weather.generateHistoryButtons();
 // when load page default to london
 // criteria, whenever the user loads page, it brings up the last weather search
 weather.fetchWeather(getLastStorage());
