@@ -1,12 +1,13 @@
 const apiKey = "7e6847b6027bd0af581a71ea3d6caf97";
+let currentCity;
 // fetching weather
 function fetchWeather(city) {
-  console.log(this);
-  console.log(city);
+  console.log(this.value);
+  currentCity = typeof city === "string" ? city : this.value;
 
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=" +
-      city +
+      currentCity +
       "&units=metric&appid=" +
       apiKey
   )
@@ -18,8 +19,8 @@ function fetchWeather(city) {
       return response.json();
     })
     .then((data) => {
-      this.displayWeather(data);
-      this.displayForecast(data.coord.lat, data.coord.lon);
+      displayWeather(data);
+      displayForecast(data.coord.lat, data.coord.lon);
     });
 }
 // Append function
@@ -59,8 +60,8 @@ function displayForecast(lat, lon) {
       return response.json();
     })
     .then((data) => {
-      this.displayUv(data.current.uvi);
-      this.createForecastCards(data.daily);
+      displayUv(data.current.uvi);
+      createForecastCards(data.daily);
     });
 }
 function displayUv(data) {
@@ -88,7 +89,7 @@ function createForecastCards(dailyForecast) {
     // append parent div into section of <section> in html, do for each iteration of the daily forecast,, as its in the for loop
     const forecastCard = ` <div class="card2">
   <div class="weather">
-    <h2 class="city">Weather in London </h2>
+    <h2 class="city">Weather in ${currentCity}  </h2>
     <h1 class="temperature">${dailyForecast[i].feels_like.day}°c</h1>
     <img src="" alt="" class="icon" />
     <div class="description">${dailyForecast[i].weather[0].description}</div>
@@ -104,7 +105,7 @@ function createForecastCards(dailyForecast) {
 }
 // function to get content of search bar
 function search() {
-  this.fetchWeather(document.querySelector(".search-bar").value);
+  fetchWeather(document.querySelector(".search-bar").value);
 }
 function addToLocalStorage() {
   const searchCity = document.querySelector(".search-bar").value;
@@ -119,7 +120,7 @@ function addToLocalStorage() {
   // store array back in local storage
   localStorage.setItem("searches", JSON.stringify(searchHistory));
   // call the generateHistoryButtons function to regenerate the previous search buttons
-  this.generateHistoryButtons();
+  generateHistoryButtons();
 }
 function generateHistoryButtons() {
   let searchHistory = JSON.parse(localStorage.getItem("searches")) || [];
@@ -131,7 +132,7 @@ function generateHistoryButtons() {
     var btn = document.createElement("button");
     btn.setAttribute("value", searchHistory[i]);
     btn.textContent = searchHistory[i];
-    btn.onclick = this.fetchWeather;
+    btn.onclick = fetchWeather;
 
     historySection.appendChild(btn);
   }
