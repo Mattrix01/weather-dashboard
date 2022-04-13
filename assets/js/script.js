@@ -26,7 +26,6 @@ function fetchWeather(city) {
 // Append function
 function displayWeather(data) {
   // what data is fetching
-  // console.log(data);
   // extracting name from this object and making it into a variable
   const { name } = data;
   // extracting icon and description from data, weather object
@@ -80,13 +79,6 @@ function createForecastCards(dailyForecast) {
   const forecastCardsString = [];
 
   for (var i = 0; i < 5; i++) {
-    // create the elments for html, or each forecast create a new card div
-    // inside that create h2 and give text of data of forecast.
-    // create h1 for temperature
-    // create image elemnet for icon
-    // a div for the humidity, div for wind, div for UV
-    // append all of elemnts into card div created in html
-    // append parent div into section of <section> in html, do for each iteration of the daily forecast,, as its in the for loop
     const forecastCard = ` <div class="card2">
   <div class="weather">
     <h2 class="city">Weather in ${currentCity}  </h2>
@@ -163,6 +155,5 @@ getLastStorage = function () {
   return "glasgow";
 };
 generateHistoryButtons();
-// when load page default to london
-// criteria, whenever the user loads page, it brings up the last weather search
+
 fetchWeather(getLastStorage());

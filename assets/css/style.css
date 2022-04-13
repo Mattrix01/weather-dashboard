@@ -105,13 +105,6 @@ section {
   margin: 5px;
 }
 
-/* .card-history:hover {
-  transform-style: (1.05);
-  transform: scale(1.1);
-  transition: 0.3s ease-in;
-  box-shadow: 0px 2px 40px var(red);
-} */
-
 .fadein {
   animation: fadein 2s;
 }
